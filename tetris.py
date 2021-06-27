@@ -1,10 +1,35 @@
+import tkinter as tk
+from tkinter import font
+
 class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
 
+class TetrisGame(tk.Tk):
+    def __init__(self):
+        super().__init__()
 
-class Tetris():
+        self.title("Tetris")
+        self.geometry('800x640')
+        self.resizable(False,False)
+
+        self.screen = tk.Canvas(self, bg="white", width=500, height=800)
+
+    def set_game_screens(self, game_screens):
+        self.set_game_screens = game_screens
+
+    def display_screen(self, ):#game_screen_number):
+        #self.active_screen = self.game_screens
+        self.screen.delete("all")
+        self.screen.create_image((250,400),image=self.active_screen.image)
+    
+    def show_next_screen(self):
+        self.display_screen
+
+    def play(self):
+        self.display_screen()
+
     def Check(self):
         pass
 
@@ -45,7 +70,6 @@ class I_block(Tetrismino):
     node_2.next = node_1
 
 
-I = I_block((4,0))
-# print(I.node_1.next.next.data)
-I.Down()
-print(I.prev)
+game=TetrisGame()
+game.set_game_screens
+game.play()
