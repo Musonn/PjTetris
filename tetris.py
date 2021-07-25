@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import font
+from tkinter import Frame, font
+from tkinter.constants import LEFT
 
 class Node:
     def __init__(self, data):
@@ -14,21 +15,21 @@ class TetrisGame(tk.Tk):
         self.geometry('800x640')
         self.resizable(False,False)
 
-        self.screen = tk.Canvas(self, bg="white", width=500, height=800)
+        self.screen = tk.Canvas(self, bg="white", width=300, height=400)# dimension of the screen
 
-    def set_game_screens(self, game_screens):
-        self.set_game_screens = game_screens
+    currentGameConsole = [[0 for x in range(10)] for y in range(20)]    # width 10, height 20
+    nextGameConsole = [[0 for x in range(10)] for y in range(20)]    # width 10, height 20
 
-    def display_screen(self, ):#game_screen_number):
-        #self.active_screen = self.game_screens
-        self.screen.delete("all")
-        self.screen.create_image((250,400),image=self.active_screen.image)
+    # def set_game_screens(self, game_screens):
+    #     self.set_game_screens = game_screens
+
+    # def display_screen(self, ):#game_screen_number):
+    #     #self.active_screen = self.game_screens
+    #     self.screen.delete("all")
+    #     self.screen.create_image((250,400),image=self.active_screen.image)
     
-    def show_next_screen(self):
-        self.display_screen
-
-    def play(self):
-        self.display_screen()
+    # def show_next_screen(self):
+    #     self.display_screen
 
     def Check(self):
         pass
@@ -37,12 +38,14 @@ class TetrisGame(tk.Tk):
 class Tetrismino():
     def __init__(self, data):
         self.prev = data  # prev origin at left up corner be (0,0)
+        self.location = self.prev
 
     def Left(self):
         self.location = list(self.prev)
         self.location[0] -= 1
         if Check():
             self.prev = tuple(self.location)
+        return self.location, self.prev
 
 
     def Right(self):
@@ -57,8 +60,10 @@ class Tetrismino():
         if Check():
             self.prev = tuple(self.location)
 
+    def Chi(self):
+        return '10'
 
-class I_block(Tetrismino):
+class iBlock(Tetrismino):
     def __init__(self, data):
         super().__init__(data)
 
@@ -69,7 +74,12 @@ class I_block(Tetrismino):
     node_1.next = node_2
     node_2.next = node_1
 
+if __name__=="__main__":
+    game=TetrisGame()
+    origin = (0,0)
+    t = Tetrismino(origin)
 
-game=TetrisGame()
-game.set_game_screens
-game.play()
+    iblock = iBlock(t)
+    iblock.Down()
+    #game.mainloop()
+    x=10
